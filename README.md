@@ -28,7 +28,7 @@ AI-powered research workspace to upload PDFs, generate summaries, chat with docu
 
 ## Client 
 
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=https://researchpilot-ai-three.vercel.app/dashboard
 
 ## Deployment 
 
