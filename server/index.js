@@ -1,16 +1,31 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
-const connectDB = require("./database/connectDB");
 
-dotenv.config();
+const connectDB = require("./database/connectDB");
+const authRoutes = require("./routes/authRoutes");
+const projectRoutes = require("./routes/projectRoutes");
+const researchRoutes = require("./routes/researchRoutes");
+const { errorHandler } = require("./middleware/errorMiddleware");
 
 connectDB();
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+  })
+);
 app.use(express.json());
+
+app.use("/api/auth", authRoutes);
+app.use("/api/projects", projectRoutes);
+app.use("/api/research", researchRoutes);
+app.use(errorHandler);
 
 app.get("/", (req, res) => {
   res.send("ResearchPilot AI Backend Running");
